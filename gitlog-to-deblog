@@ -43,7 +43,7 @@ for commit in repo.walk(repo.head.target, GIT_SORT_TOPOLOGICAL):
         package=package,
         version=version,
         message=message,
-        author_name=commit.author.name,
-        author_email=commit.author.email,
+        author_name=commit.author.name.encode("ascii", errors="replace"),
+        author_email=commit.author.email.encode("ascii", errors="replace"),
         time=datetime.datetime.fromtimestamp(commit.commit_time).strftime("%a, %d %b %Y %H:%M:%S -0000")
     ))
