@@ -8,5 +8,5 @@ Homepage: https://github.com/adamjacobmuller/gitlog-to-deblog
 
 Package: gitlog-to-deblog
 Architecture: amd64
-Depends: ${misc:Depends}, ${python:Depends}, python-pkg-resources
+Depends: ${misc:Depends}, ${python:Depends}, python-pkg-resources, python-pygit2
 Description: convert git log to a debian-compliant changelog file
