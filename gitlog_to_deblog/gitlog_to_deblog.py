@@ -20,9 +20,9 @@ def main():
 
     log = """{package} ({version}) unstable; urgency=low
 
-* {message}
+  * {message}
 
--- {author_name} <{author_email}>  {time}
+ -- {author_name} <{author_email}>  {time}
 """
     for commit in repo.walk(repo.head.target, GIT_SORT_TOPOLOGICAL):
         if checktag:
