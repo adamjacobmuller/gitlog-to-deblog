@@ -4,8 +4,6 @@ import re
 import sys
 import datetime
 
-from pygit2 import Repository
-from pygit2 import GIT_SORT_TOPOLOGICAL, GIT_SORT_REVERSE
 from sh import git
 
 
@@ -24,7 +22,10 @@ def main():
 
     -- {author_name} <{author_email}>  {time}
     """
-    for commit in repo.walk(repo.head.target, GIT_SORT_TOPOLOGICAL):
+    commits = git("log", "--pretty=format:%H")
+    for commit in commits:
+        if commit == "":
+            break
         if checktag:
             try:
                 version = git("describe", "--tags", commit.id).strip()
