@@ -12,7 +12,6 @@ setup(
         ]
     },
     install_requires=[
-        'sh',
-        'pygit2'
+        'sh'
     ]
 )
