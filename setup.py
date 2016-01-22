@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='gitlog-to-deblog',
-    version='1.0.2',
+    version='1.0.3',
     author='Adam Jacob Muller',
     packages=find_packages(),
     author_email='adam@isprime.com',
