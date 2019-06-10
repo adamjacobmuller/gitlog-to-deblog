@@ -3,10 +3,10 @@ import sh
 import re
 import sys
 import datetime
+import subprocess
 
 from pygit2 import Repository
 from pygit2 import GIT_SORT_TOPOLOGICAL, GIT_SORT_REVERSE
-from sh import git
 
 
 def main():
@@ -27,7 +27,7 @@ def main():
     for commit in repo.walk(repo.head.target, GIT_SORT_TOPOLOGICAL):
         if checktag:
             try:
-                version = git("describe", "--tags", commit.id).strip()
+                version = subprocess.check_output(['git', 'describe', '--tags', str(commit.id)]).strip()
             except sh.ErrorReturnCode_128:
                 version = '0.0.0-0-g%s' % str(commit.id)[0:7]
                 checktag = False
