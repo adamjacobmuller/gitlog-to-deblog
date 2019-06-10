@@ -28,9 +28,12 @@ def main():
         if checktag:
             try:
                 version = subprocess.check_output(['git', 'describe', '--tags', str(commit.id)]).strip()
-            except sh.ErrorReturnCode_128:
-                version = '0.0.0-0-g%s' % str(commit.id)[0:7]
-                checktag = False
+            except subprocess.CalledProcessError, e :
+                if e.returncode == 128:
+                    version = '0.0.0-0-g%s' % str(commit.id)[0:7]
+                    checktag = False
+                else:
+                    raise e
         else:
             version = '0.0.0-0-g%s' % str(commit.id)[0:7]
 
