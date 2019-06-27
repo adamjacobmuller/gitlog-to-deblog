@@ -52,3 +52,6 @@ def main():
             author_email=commit.author.email.encode("ascii", errors="replace"),
             time=datetime.datetime.fromtimestamp(commit.commit_time).strftime("%a, %d %b %Y %H:%M:%S -0000")
         ))
+
+if __name__ == "__main__":
+    main()
