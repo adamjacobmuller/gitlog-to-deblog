@@ -13,6 +13,7 @@ stretch:
   script:
     - mk-build-deps -i -t "apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends -y"
     - python gitlog_to_deblog/gitlog_to_deblog.py gitlog-to-deblog > debian/changelog
+    - cat debian/changelog
     - debuild --check-dirname-level 0 --no-tgz-check -us -uc
     - mkdir build
     - mv ../*.build ../*.dsc ../*.deb ../*.tar.gz ../*.buildinfo ../*.changes build
@@ -30,6 +31,7 @@ trusty:
   script:
     - mk-build-deps -i -t "apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends -y"
     - python gitlog_to_deblog/gitlog_to_deblog.py gitlog-to-deblog > debian/changelog
+    - cat debian/changelog
     - debuild --check-dirname-level 0 --no-tgz-check -us -uc
     - mkdir build
     - mv ../*.build ../*.dsc ../*.deb ../*.tar.gz ../*.changes build
