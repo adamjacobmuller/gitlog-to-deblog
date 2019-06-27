@@ -1,0 +1,36 @@
+stages:
+  - test
+variables:
+  DEBIAN_FRONTEND: noninteractive
+
+stretch:
+  stage: build
+  image: gitlab-registry.nurd.com/nurd/docker-ci-builders/debian-9/amd64:apt-repos
+  artifacts:
+    paths:
+     - build/
+  script:
+    - gitlog-to-deblog gitlog-to-deblog > debian/changelog
+    - debuild --check-dirname-level 0 --no-tgz-check -us -uc
+    - mkdir build
+    - mv ../*.build ../*.dsc ../*.deb ../*.tar.gz ../*.buildinfo ../*.changes build
+    - aptly-cli upload --directory $(lsb_release -cs) build/*.deb
+    - aptly-cli add --directory $(lsb_release -cs) --repository belugacdn-$(lsb_release -cs)
+    - aptly-cli snapshot create --repository belugacdn-$(lsb_release -cs) --name belugacdn-$(lsb_release -cs)-$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME-$CI_JOB_ID
+    - aptly-cli publish snapshot --prefix belugacdn-$(lsb_release -cs) --distribution $(lsb_release -cs) --snapshot belugacdn-$(lsb_release -cs)-$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME-$CI_JOB_ID
+
+trusty:
+  stage: build
+  image: gitlab-registry.nurd.com/nurd/docker-ci-builders/ubuntu-14.04/amd64:apt-repos
+  artifacts:
+    paths:
+     - build/
+  script:
+    - gitlog-to-deblog gitlog-to-deblog > debian/changelog
+    - debuild --check-dirname-level 0 --no-tgz-check -us -uc
+    - mkdir build
+    - mv ../*.build ../*.dsc ../*.deb ../*.tar.gz ../*.changes build
+    - aptly-cli upload --directory $(lsb_release -cs) build/*.deb
+    - aptly-cli add --directory $(lsb_release -cs) --repository belugacdn-$(lsb_release -cs)
+    - aptly-cli snapshot create --repository belugacdn-$(lsb_release -cs) --name belugacdn-$(lsb_release -cs)-$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME-$CI_JOB_ID
+    - aptly-cli publish snapshot --prefix belugacdn-$(lsb_release -cs) --distribution $(lsb_release -cs) --snapshot belugacdn-$(lsb_release -cs)-$CI_PROJECT_NAMESPACE-$CI_PROJECT_NAME-$CI_JOB_ID
