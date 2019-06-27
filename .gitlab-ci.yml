@@ -6,7 +6,7 @@ variables:
 
 stretch:
   stage: build
-  image: gitlab-registry.nurd.com/nurd/docker-ci-builders/debian-9/amd64:python
+  image: gitlab-registry.nurd.com/nurd/docker-ci-builders/debian/stretch:amd64-python
   artifacts:
     paths:
      - build/
@@ -23,7 +23,7 @@ stretch:
 
 trusty:
   stage: build
-  image: gitlab-registry.nurd.com/nurd/docker-ci-builders/ubuntu-14.04/amd64:python
+  image: gitlab-registry.nurd.com/nurd/docker-ci-builders/ubuntu/trusty:amd64-python
   artifacts:
     paths:
      - build/
