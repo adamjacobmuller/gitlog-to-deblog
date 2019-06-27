@@ -11,6 +11,7 @@ stretch:
     paths:
      - build/
   script:
+    - mk-build-deps -i -t "apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends -y"
     - python gitlog_to_deblog/gitlog_to_deblog.py gitlog-to-deblog > debian/changelog
     - debuild --check-dirname-level 0 --no-tgz-check -us -uc
     - mkdir build
@@ -27,6 +28,7 @@ trusty:
     paths:
      - build/
   script:
+    - mk-build-deps -i -t "apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends -y"
     - python gitlog_to_deblog/gitlog_to_deblog.py gitlog-to-deblog > debian/changelog
     - debuild --check-dirname-level 0 --no-tgz-check -us -uc
     - mkdir build
