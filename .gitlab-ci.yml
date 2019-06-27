@@ -11,7 +11,7 @@ stretch:
     paths:
      - build/
   script:
-    - gitlog-to-deblog gitlog-to-deblog > debian/changelog
+    - python gitlog_to_deblog/gitlog_to_deblog.py gitlog-to-deblog > debian/changelog
     - debuild --check-dirname-level 0 --no-tgz-check -us -uc
     - mkdir build
     - mv ../*.build ../*.dsc ../*.deb ../*.tar.gz ../*.buildinfo ../*.changes build
@@ -27,7 +27,7 @@ trusty:
     paths:
      - build/
   script:
-    - gitlog-to-deblog gitlog-to-deblog > debian/changelog
+    - python gitlog_to_deblog/gitlog_to_deblog.py gitlog-to-deblog > debian/changelog
     - debuild --check-dirname-level 0 --no-tgz-check -us -uc
     - mkdir build
     - mv ../*.build ../*.dsc ../*.deb ../*.tar.gz ../*.changes build
