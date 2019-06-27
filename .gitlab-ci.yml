@@ -15,7 +15,7 @@ stretch:
     - python gitlog_to_deblog/gitlog_to_deblog.py gitlog-to-deblog > debian/changelog
     - cat debian/changelog
     - debuild --check-dirname-level 0 --no-tgz-check -us -uc
-    - mkdir build
+    - mkdir -p build
     - mv ../*.build ../*.dsc ../*.deb ../*.tar.gz ../*.buildinfo ../*.changes build
     - aptly-cli upload --directory $(lsb_release -cs) build/*.deb
     - aptly-cli add --directory $(lsb_release -cs) --repository belugacdn-$(lsb_release -cs)
@@ -33,7 +33,7 @@ trusty:
     - python gitlog_to_deblog/gitlog_to_deblog.py gitlog-to-deblog > debian/changelog
     - cat debian/changelog
     - debuild --check-dirname-level 0 --no-tgz-check -us -uc
-    - mkdir build
+    - mkdir -p build
     - mv ../*.build ../*.dsc ../*.deb ../*.tar.gz ../*.changes build
     - aptly-cli upload --directory $(lsb_release -cs) build/*.deb
     - aptly-cli add --directory $(lsb_release -cs) --repository belugacdn-$(lsb_release -cs)
